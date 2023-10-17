@@ -7,15 +7,20 @@ package edu.nidhal.gui;
 
 import edu.nidhal.entities.Panier;
 import edu.nidhal.services.PanierCRUD;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.omg.CORBA.SystemException;
 
 /**
@@ -37,15 +42,19 @@ public class PanierController implements Initializable {
     private Button btnajouter;
     @FXML
     private Button btnafficher;
+    @FXML
+    private Button btnCommande;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+         
     }    
 
+    
+    
     @FXML
 private void ajouterPanier(ActionEvent event) {
     String idpText = tfid.getText();
@@ -115,5 +124,21 @@ private void afficherErreur(String message) {
     alert.setContentText(panierContent.toString());
     alert.showAndWait();
 }
+
+    @FXML
+    private void allerVersCommande(ActionEvent event) {
+        
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CommandeWindow.fxml"));
+            Parent commandeRoot = loader.load();
+            Stage stage = (Stage) btnCommande.getScene().getWindow();
+            stage.setScene(new Scene(commandeRoot));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+        
+    }
+    
     

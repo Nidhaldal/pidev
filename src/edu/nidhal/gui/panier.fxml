@@ -30,5 +30,6 @@
             <Image url="@6745236070_6_1_1.jpg" />
          </image>
       </ImageView>
+      <Button fx:id="btnCommande" layoutX="435.0" layoutY="367.0" mnemonicParsing="false" onAction="#allerVersCommande" text="Passer vers commande" />
    </children>
 </AnchorPane>
