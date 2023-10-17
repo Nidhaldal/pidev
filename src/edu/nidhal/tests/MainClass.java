@@ -26,7 +26,7 @@ public class MainClass {
            //ccd.EffacerCommande(2, "en cours", "en ligne");
          //pcd.EffacerPanier(1, "pull", 10, 12);
          //ccd.ModifierCommande(3, "en cours", "en ligne");
-           pcd.ModifierPanier(2, "serwel ak7el ", 12, 85);
+          pcd.ModifierPanier(2, "capuche ", 14, 85);
     }
     
     

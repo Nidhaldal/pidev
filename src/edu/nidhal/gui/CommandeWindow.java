@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+ 
 package edu.nidhal.gui;
 
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -26,16 +28,17 @@ public class CommandeWindow extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        Parent root  = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("WindowCom.fxml"));
-            Scene scene = new Scene(root );
-            primaryStage.setTitle("Ajout Panier !");
+            Parent root = FXMLLoader.load(getClass().getResource("CommandeWindow.fxml"));
+            
+            Scene scene = new Scene(root);
+            
+            primaryStage.setTitle("Commande!");
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException ex) {
-           System.out.println(ex.getMessage()); ;
-        } 
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**

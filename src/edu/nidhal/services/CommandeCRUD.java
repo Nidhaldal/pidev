@@ -119,6 +119,14 @@ public class CommandeCRUD {
         System.err.println("Error: " + ex.getMessage());
     }
 }
+
+    public void ajouterCommande(Commande c) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void EffacerCommande(int idc) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     

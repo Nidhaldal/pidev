@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,20 +22,20 @@ import javafx.stage.Stage;
  *
  * @author nidha
  */
-public class WindowPanier extends Application {
+public class PanierWindow extends Application {
     
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("WindowPanier.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("panier.fxml"));
             
             Scene scene = new Scene(root);
             
-            primaryStage.setTitle("Panier");
+            primaryStage.setTitle("Panier!");
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());;
+            System.out.println(ex.getMessage());
         }
     }
 

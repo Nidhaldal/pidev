@@ -29,6 +29,10 @@ public class Commande {
         this.mode_pay = mode_pay;
     }
 
+    public Commande(int idc, String etat, String mode_pay, float montant) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getIdc() {
         return idc;
     }
