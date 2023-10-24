@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.nidhal.gui.CommandeItemWindowController">
+    <children>
+        <TableView fx:id="commandeTableView" layoutX="50.0" layoutY="50.0" prefHeight="300.0" prefWidth="500.0">
+            <columns>
+                <TableColumn fx:id="idcColumn" prefWidth="80.0" text="IDC" />
+                <TableColumn fx:id="montantColumn" prefWidth="100.0" text="Montant" />
+                <TableColumn fx:id="modePayColumn" prefWidth="100.0" text="Mode de Paiement" />
+                <TableColumn fx:id="dateColumn" prefWidth="120.0" text="Date" />
+            </columns>
+        </TableView>
+        <VBox layoutX="10.0" layoutY="10.0" prefWidth="300.0" />
+      <Button fx:id="btneff" layoutX="50.0" layoutY="360.0" mnemonicParsing="false" onAction="#EffacerCommande" text="Effacer Commande par IDC" />
+    </children>
+</AnchorPane>

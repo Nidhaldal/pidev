@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/gui/PanierItemApp.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/services/CommandeCRUD.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/entities/Commande.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/tests/MainClass.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/gui/CommandeWindowController.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/gui/CommandeItemWindow.fxml</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/gui/CommandeStatsController.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/gui/PanierItemWindow.fxml</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/gui/CommandeWindow.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/tools/CurrencyConverter.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/entities/PanierItem.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/gui/CommandeItemWindowController.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/gui/nullpanier.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/gui/PanierItemWindowController.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/gui/CommandeStats.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/services/PanierCRUD.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/gui/CommandeItemWindow.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/gui/CommandeWindow.fxml</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/tools/MyConnection.java</file>
+            <file>file:/C:/Users/nidha/OneDrive/Bureau/nidhal/src/edu/nidhal/gui/CommandeStats.fxml</file>
+        </group>
+    </open-files>
+</project-private>

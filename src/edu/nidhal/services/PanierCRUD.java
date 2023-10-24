@@ -3,131 +3,118 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
 package edu.nidhal.services;
 
 import edu.nidhal.entities.Panier;
+import edu.nidhal.entities.PanierItem;
 import edu.nidhal.tools.MyConnection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-        
-/**
- *
- * @author nidha
- */
 
-
-
-
-
-/**
- *
- * @author nidha
- */
 public class PanierCRUD {
-    
-    public void ajouterPanier(){
+
+    public void ajouterPanier(PanierItem p) {
         try {
-            String requete ="INSERT INTO Panier(element,quantite,montant)"
-                    +"VALUES('pull','10','12')";
-            
-            Statement st = new MyConnection().getCnx().createStatement();
-            st.executeUpdate(requete);
-            System.out.println("Panier ajoutée");
+            Connection connection = MyConnection.getInstance().getCnx();
+            String query = "INSERT INTO panier (element, quantite, montant) VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, p.getElement());
+            preparedStatement.setInt(2, p.getQuantite());
+            preparedStatement.setFloat(3, p.getMontant());
+            preparedStatement.executeUpdate();
+            System.out.println("Panier ajouté avec succès.");
         } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
+            System.err.println("Erreur lors de l'ajout du panier : " + ex.getMessage());
         }
     }
-    
-    public void ajouterPanier2(Panier p){
-      
-        
-    }
-    public List<Panier> afficherPanier(){
-        List<Panier> myList = new ArrayList<>();
+public void EffacerPanier() {
         try {
-            String requete3 = "SELECT * FROM Panier ";
-            Statement st = new MyConnection().getCnx().createStatement();
-           ResultSet rs= st.executeQuery(requete3);
-            while(rs.next()){
-                Panier p = new Panier();
-                p.setIdp(rs.getInt(1));
-                p.setElement(rs.getString("element"));
-                p.setQuantite(rs.getInt("quantite"));
-                p.setMontant(rs.getFloat("montant"));
+            Connection connection = MyConnection.getInstance().getCnx();
+            String query = "DELETE FROM panier WHERE idp = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            
+            int rowsAffected = preparedStatement.executeUpdate();
 
-                myList.add(p);
-                
+            if (rowsAffected > 0) {
+                System.out.println("Panier supprimé avec succès.");
+            } else {
+                System.out.println("Panier introuvable.");
             }
         } catch (SQLException ex) {
-            System.err.println("ex.getMessage()");
+            System.err.println("Erreur lors de la suppression du panier : " + ex.getMessage());
         }
-        return myList;
     }
     
-     public void EffacerPanier(int idp, String element, int quantite , float montant) {
-    try {
-        String deleteQuery = "DELETE FROM Panier WHERE idp = ? AND element = ? AND quantite = ? AND montant = ?";
-        
-        PreparedStatement preparedStatement = new MyConnection().getCnx().prepareStatement(deleteQuery);
-        preparedStatement.setInt(1, idp);
-        preparedStatement.setString(2, element);
-        preparedStatement.setInt(3, quantite);
-        preparedStatement.setFloat(4, montant);
+     public void Effacerpanier(int idp) {
+        try {
+            String deleteQuery = "DELETE FROM panier WHERE idp = ?";
+            PreparedStatement preparedStatement = new MyConnection().getCnx().prepareStatement(deleteQuery);
+            preparedStatement.setInt(1, idp);
+            int rowsAffected = preparedStatement.executeUpdate();
 
-        int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Panier effacée avec succès.");
+            } else {
+                System.out.println("Panier inexistante.");
+            }
 
-        if (rowsAffected > 0) {
-            System.out.println("Panier effacé avec succès.");
-        } else {
-            System.out.println("Panier inexistante .");
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
         }
-
-        preparedStatement.close();
-    } catch (SQLException ex) {
-        System.err.println("Error: " + ex.getMessage());
     }
-}
-     
-     
-     
-     
-      public void ModifierPanier(int idp, String newElement, int newQuantite ,float newMontant) {
-    try {
-        // Define the SQL UPDATE query
-        String updateQuery = "UPDATE Panier SET element = ?, quantite = ? , montant=?  WHERE idp = ?";
-        
-        // Create a PreparedStatement with the update query
-        PreparedStatement preparedStatement = new MyConnection().getCnx().prepareStatement(updateQuery);
-        preparedStatement.setString(1, newElement);
-        preparedStatement.setInt(2, newQuantite);
-        preparedStatement.setFloat(3, newMontant);
-        preparedStatement.setInt(4, idp);
+   
 
-        // Execute the UPDATE query
-        int rowsAffected = preparedStatement.executeUpdate();
+    public void ModifierPanier(PanierItem item) {
+        int idp = item.getIdp();
+if (idp <= 0) {
+    System.err.println("Invalid idp value.");
+    return;}
+        try {
+            Connection connection = MyConnection.getInstance().getCnx();
+            String query = "UPDATE panier SET element = ?, quantite = ?, montant = ? WHERE idp = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, item.getElement());
+            preparedStatement.setInt(2, item.getQuantite());
+            preparedStatement.setFloat(3, item.getMontant());
+            preparedStatement.setInt(4, idp);
+            int rowsAffected = preparedStatement.executeUpdate();
 
-        // Check if any rows were updated
-        if (rowsAffected > 0) {
-            System.out.println("Panier modifiée avec succès.");
-        } else {
-            System.out.println("Panier inexistante.");
+            if (rowsAffected > 0) {
+                System.out.println("Panier modifié avec succès.");
+            } else {
+                System.out.println("Panier introuvable.");
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erreur lors de la modification du panier : " + ex.getMessage());
         }
-
-        // Close the PreparedStatement
-        preparedStatement.close();
-    } catch (SQLException ex) {
-        System.err.println("Error: " + ex.getMessage());
     }
-     
-}
 
-    public void ajouterPanier(Panier p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Panier> afficherPanier() {
+        List<Panier> panierList = new ArrayList<>();
+        try {
+            Connection connection = MyConnection.getInstance().getCnx();
+            String query = "SELECT * FROM panier";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Panier p = new Panier();
+                p.setIdp(resultSet.getInt("idp"));
+                p.setElement(resultSet.getString("element"));
+                p.setQuantite(resultSet.getInt("quantite"));
+                p.setMontant(resultSet.getFloat("montant"));
+                panierList.add(p);
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erreur lors de la récupération des paniers : " + ex.getMessage());
+        }
+        return panierList;
     }
 }

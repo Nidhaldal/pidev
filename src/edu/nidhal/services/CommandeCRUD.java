@@ -7,132 +7,115 @@ package edu.nidhal.services;
 
 import edu.nidhal.entities.Commande;
 import edu.nidhal.tools.MyConnection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Scanner;
 
-/**
- *
- * @author nidha
- */
 public class CommandeCRUD {
-    
-    public void ajouterCommande(){
+
+    public void ajouterCommande(Commande c , float totalAmount) {
         try {
-            String requete ="INSERT INTO Commande(etat,mode_pay)"
-                    +"VALUES('en cours','en ligne')";
+            String query = "INSERT INTO Commande ( mode_pay, montant, date) VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = new MyConnection().getCnx().prepareStatement(query);
             
+            preparedStatement.setString(1, c.getMode_pay());
+            preparedStatement.setFloat(2, totalAmount);
+            
+            Date sqlDate = Date.valueOf(c.getDate());
+            preparedStatement.setDate(3, sqlDate);
+            preparedStatement.executeUpdate();
+            System.out.println("Commande ajoutée avec succès.");
+        } catch (SQLException ex) {
+            System.err.println("Erreur lors de l'ajout de la commande : " + ex.getMessage());
+        }
+    }
+
+    public List<Commande> afficherCommandes() {
+        List<Commande> myList = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM Commande";
             Statement st = new MyConnection().getCnx().createStatement();
-            st.executeUpdate(requete);
-            System.out.println("Commande ajoutée");
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                Commande c = new Commande();
+                c.setIdc(rs.getInt(1));
+                
+                c.setMode_pay(rs.getString("mode_pay"));
+                c.setMontant(rs.getFloat("montant"));
+                c.setDate(rs.getDate("date").toLocalDate());
+                myList.add(c);
+            }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-    }
-    
-    public void ajouterCommande2(Commande c){
-      
-        
-    }
-    public List<Commande> afficherCommandes(){
-        List<Commande> myList = new ArrayList<>();
-        try {
-            String requete3 = "SELECT * FROM Commande ";
-            Statement st = new MyConnection().getCnx().createStatement();
-           ResultSet rs= st.executeQuery(requete3);
-            while(rs.next()){
-                Commande c = new Commande();
-                c.setIdc(rs.getInt(1));
-                c.setEtat(rs.getString("etat"));
-                c.setMode_pay(rs.getString("mode_pay"));
-                myList.add(c);
-                
-            }
-        } catch (SQLException ex) {
-            System.err.println("ex.getMessage()");
-        }
         return myList;
-    
-    
     }
-    
-    
-    public void EffacerCommande(int idc, String etat, String mode_pay) {
-    try {
-        // Define the SQL DELETE query
-        String deleteQuery = "DELETE FROM Commande WHERE idc = ? AND etat = ? AND mode_pay = ?";
-        
-        // Create a PreparedStatement with the delete query
-        PreparedStatement preparedStatement = new MyConnection().getCnx().prepareStatement(deleteQuery);
-        preparedStatement.setInt(1, idc);
-        preparedStatement.setString(2, etat);
-        preparedStatement.setString(3, mode_pay);
 
-        // Execute the DELETE query
-        int rowsAffected = preparedStatement.executeUpdate();
+   public void EffacerCommande(int idc) {
+        try {
+            String deleteQuery = "DELETE FROM Commande WHERE idc = ?";
+            PreparedStatement preparedStatement = new MyConnection().getCnx().prepareStatement(deleteQuery);
+            preparedStatement.setInt(1, idc);
+            int rowsAffected = preparedStatement.executeUpdate();
 
-        // Check if any rows were deleted
-        if (rowsAffected > 0) {
-            System.out.println("Commande effacée avec succès.");
-        } else {
-            System.out.println("Commande inexistante.");
+            if (rowsAffected > 0) {
+                System.out.println("Commande effacée avec succès.");
+            } else {
+                System.out.println("Commande inexistante.");
+            }
+
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex.getMessage());
         }
-
-        // Close the PreparedStatement
-        preparedStatement.close();
-    } catch (SQLException ex) {
-        System.err.println("Error: " + ex.getMessage());
     }
-}
-    
-    
-    
-    public void ModifierCommande(int idc, String newEtat, String newMode_pay) {
-    try {
-        // Define the SQL UPDATE query
-        String updateQuery = "UPDATE Commande SET etat = ?, mode_pay = ? WHERE idc = ?";
-        
-        // Create a PreparedStatement with the update query
-        PreparedStatement preparedStatement = new MyConnection().getCnx().prepareStatement(updateQuery);
-        preparedStatement.setString(1, newEtat);
-        preparedStatement.setString(2, newMode_pay);
-        preparedStatement.setInt(3, idc);
 
-        // Execute the UPDATE query
+   public void ModifierCommande(Commande selectedCommande) {
+    try {
+        String updateQuery = "UPDATE Commande SET  mode_pay = ?, montant = ?, date = ? WHERE idc = ?";
+        PreparedStatement preparedStatement = new MyConnection().getCnx().prepareStatement(updateQuery);
+        
+        preparedStatement.setString(1, selectedCommande.getMode_pay());
+        preparedStatement.setFloat(2, selectedCommande.getMontant());
+
+        // Handle the date
+        Date sqlDate;
+        LocalDate localDate = selectedCommande.getDate();
+        if (localDate != null) {
+            sqlDate = Date.valueOf(localDate);
+        } else {
+            // Provide a default date if needed
+            sqlDate = Date.valueOf(LocalDate.now());
+        }
+        preparedStatement.setDate(3, sqlDate);
+
+        preparedStatement.setInt(5, selectedCommande.getIdc());
         int rowsAffected = preparedStatement.executeUpdate();
 
-        // Check if any rows were updated
         if (rowsAffected > 0) {
             System.out.println("Commande modifiée avec succès.");
         } else {
             System.out.println("Commande inexistante.");
         }
-
-        // Close the PreparedStatement
         preparedStatement.close();
     } catch (SQLException ex) {
         System.err.println("Error: " + ex.getMessage());
     }
 }
 
-    public void ajouterCommande(Commande c) {
+
+
+    public void EffacerCommande() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void EffacerCommande(int idc) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     
-    
-    
-    
-    
-    }
-    
-
+}

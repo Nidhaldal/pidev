@@ -5,32 +5,43 @@
  */
 package edu.nidhal.entities;
 
-/**
- *
- * @author nidha
- */
+import java.time.LocalDate;
+
 public class Commande {
-    
     private int idc;
-    private String etat;
-    private String mode_pay; 
-   public Commande(){
    
-   } 
+    private String mode_pay;
+    private float montant;
+    private LocalDate date;
+    private String nom;  // Add the "Nom" attribute
+    private String details;  // Add the "Details" attribute
+
+    public Commande() {
+        this.date = LocalDate.now();
+    }
+
     
-    public Commande(int idc, String etat, String mode_pay) {
-        this.idc = idc;
-        this.etat = etat;
+
+    public Commande( String mode_pay, float montant) {
+        
         this.mode_pay = mode_pay;
+        this.montant = montant;
+        this.date = LocalDate.now();
     }
 
-    public Commande(String etat, String mode_pay) {
-        this.etat = etat;
-        this.mode_pay = mode_pay;
-    }
-
-    public Commande(int idc, String etat, String mode_pay, float montant) {
+    public Commande(String root_Commande) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Commande(int idc, float montant, String etat, String modePay, String date) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Commande(int idc, float montant,  String modePay, LocalDate parsedDate) {
+        this.idc = idc;
+    this.montant = montant;
+    
+    this.mode_pay = modePay;; //To change body of generated methods, choose Tools | Templates.
     }
 
     public int getIdc() {
@@ -41,13 +52,7 @@ public class Commande {
         this.idc = idc;
     }
 
-    public String getEtat() {
-        return etat;
-    }
-
-    public void setEtat(String etat) {
-        this.etat = etat;
-    }
+    
 
     public String getMode_pay() {
         return mode_pay;
@@ -57,18 +62,48 @@ public class Commande {
         this.mode_pay = mode_pay;
     }
 
-    @Override
-    public String toString() {
-        return "Commande{" + "idc=" + idc + ", etat=" + etat + ", mode_pay=" + mode_pay + '}';
+    public float getMontant() {
+        return montant;
+    }
+
+    public void setMontant(float montant) {
+        this.montant = montant;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getNom() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return nom;
     }
-    
-    
-    
-    
-    
-    
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    @Override
+    public String toString() {
+        return "Commande{" +
+                
+                ", mode_pay='" + mode_pay + '\'' +
+                ", montant=" + montant +
+                ", date=" + date +
+                ", nom='" + nom + '\'' +
+                ", details='" + details + '\'' +
+                '}';
+    }
 }
+

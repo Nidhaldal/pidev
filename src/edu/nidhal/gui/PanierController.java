@@ -82,7 +82,7 @@ private void ajouterPanier(ActionEvent event) {
         
         
         PanierCRUD pc = new PanierCRUD();
-        pc.ajouterPanier(p);
+        //pc.ajouterPanier(p);
 
        
         tfid.clear();
